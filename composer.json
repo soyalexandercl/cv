@@ -1,0 +1,16 @@
+{
+    "name": "cv/cv",
+    "autoload": {
+        "psr-4": {
+            "Controladores\\": "controladores/",
+            "Modelos\\": "modelos/",
+            "Servicios\\": "servicios/",
+            "Vistas\\": "vistas/",
+            "Nucleo\\": "nucleo/"
+        }
+    },
+    "require": {
+        "firebase/php-jwt": "^7.0",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
