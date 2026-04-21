@@ -6,6 +6,9 @@ if ($ruta['metodo_http'] == 'GET') {
     $pagina_controlador = new PaginaControlador();
 
     switch ($ruta['ruta'][0]) {
+        case '':
+            $pagina_controlador->mostrarPagina('cliente/inicio');
+            break;
         case 'perfil':
             $pagina_controlador->mostrarPagina('cliente/perfil');
             break;

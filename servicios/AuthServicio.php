@@ -3,6 +3,8 @@
 namespace Servicios;
 
 use Modelos\AuthModelo;
+use Modelos\UsuarioModelo;
+
 use Nucleo\Token;
 
 use Nucleo\ExcepcionPlataforma;
@@ -40,7 +42,7 @@ class AuthServicio
 
         $_COOKIE['token_acceso'] = $token;
 
-        $_SESSION['modulo'] = 'usuario';
+        $_SESSION['modulo'] = 'cliente';
 
         $parametros_respuesta = [
             'success' => true,
@@ -76,19 +78,28 @@ class AuthServicio
 
         $usuario_id = $this->auth_modelo->obtenerId();
 
+        $usuario_modelo = new UsuarioModelo($this->conexion);
+        $registrar_cliente = $usuario_modelo->registrarUsuarioCliente($usuario_id);
+
+        if (!$registrar_cliente) {
+            $this->conexion->rollBack();
+
+            throw new ExcepcionPlataforma('Error en el registro');
+        }
+
         $token = $this->token->generarToken($usuario_id);
 
         if (!$token) {
             $this->conexion->rollBack();
 
-            throw new ExcepcionPlataforma('Error al generar el token');
+            throw new ExcepcionPlataforma('Error en el registro');
         }
 
         $this->conexion->commit();
 
         $_COOKIE['token_acceso'] = $token;
         
-        $_SESSION['modulo'] = 'usuario';
+        $_SESSION['modulo'] = 'cliente';
         
         $parametros_respuesta = [
             'success' => true,
