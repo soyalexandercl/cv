@@ -17,6 +17,31 @@ class ClienteControlador extends Controlador
         $this->cliente_servicio = new ClienteServicio($this->conexion);
     }
 
+    public function registrarPerfil()
+    {
+        try {
+            $datos = json_decode(file_get_contents('php://input'), true);
+
+            $resultado = $this->cliente_servicio->registrarPerfil($datos);
+            
+            echo json_encode($resultado);
+        } catch (ExcepcionPlataforma $e) {
+            $parametros_respuesta = [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+
+            echo json_encode($parametros_respuesta);
+        } catch (Exception $e) {
+            $parametros_respuesta = [
+                'success' => false,
+                'message' => 'Error inesperado: ' . $e->getMessage()
+            ];
+
+            echo json_encode($parametros_respuesta);
+        }
+    }
+
     public function actualizarPerfil()
     {
         try {

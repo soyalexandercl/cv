@@ -35,9 +35,6 @@ CREATE TABLE plantillas (
 CREATE TABLE clientes_perfiles (
     id INT PRIMARY KEY,
     foto_url VARCHAR(255) NULL,
-    nombre VARCHAR(100) NULL,
-    apellidos VARCHAR(100) NULL,
-    email VARCHAR(150) NULL,
     telefono VARCHAR(20) NULL,
     ciudad VARCHAR(100) NULL,
     fecha_nacimiento DATE NULL,

@@ -40,7 +40,14 @@ class AuthServicio
             throw new ExcepcionPlataforma('Error al generar el token');
         }
 
-        $_COOKIE['token_acceso'] = $token;
+        $parametros_cookie = [
+            'expires' => time() + 3600,
+            'path' => '/',
+            'httponly' => true,
+            'samesite' => 'Strict'
+        ];
+
+        setcookie('token_acceso', $token, $parametros_cookie);
 
         $_SESSION['modulo'] = 'cliente';
 
@@ -98,7 +105,14 @@ class AuthServicio
 
         $this->conexion->commit();
 
-        $_COOKIE['token_acceso'] = $token;
+        $parametros_cookie = [
+            'expires' => time() + 3600,
+            'path' => '/',
+            'httponly' => true,
+            'samesite' => 'Strict'
+        ];
+
+        setcookie('token_acceso', $token, $parametros_cookie);
         
         $_SESSION['modulo'] = 'cliente';
         

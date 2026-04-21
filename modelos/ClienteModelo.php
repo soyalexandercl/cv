@@ -23,13 +23,16 @@ class ClienteModelo extends Modelo
         return $this->ejecutar($sql, $parametros);
     }
 
-    public function registrarPerfil($usuario_id)
+    public function registrarPerfil($datos)
     {
-        $sql = "INSERT INTO clientes_perfiles (id)
-                VALUES (:usuario_id)";
+        $sql = "INSERT INTO clientes_perfiles (id, telefono, ciudad, fecha_nacimiento)
+                VALUES (:usuario_id, :telefono, :ciudad, :fecha_nacimiento)";
 
         $parametros = [
-            ':usuario_id' => $usuario_id
+            ':usuario_id' => $datos['usuario_id'],
+            ':telefono' => $datos['telefono'],
+            ':ciudad' => $datos['ciudad'],
+            ':fecha_nacimiento' => $datos['fecha_nacimiento']
         ];
 
         return $this->ejecutar($sql, $parametros);
@@ -38,16 +41,13 @@ class ClienteModelo extends Modelo
     public function actualizarPerfil($datos)
     {
         $sql = "UPDATE clientes_perfiles
-                SET nombre = :nombre, apellidos = :apellidos, email = :email, telefono = :telefono, ciudad = :ciudad
+                SET telefono = :telefono, ciudad = :ciudad, fecha_nacimiento = :fecha_nacimiento 
                 WHERE id = :usuario_id";
 
         $parametros = [
-            ':usuario_id' => $datos['usuario_id'],
-            ':nombre' => $datos['nombre'],
-            ':apellidos' => $datos['apellidos'],
-            ':email' => $datos['email'],
             ':telefono' => $datos['telefono'],
-            ':ciudad' => $datos['ciudad']
+            ':ciudad' => $datos['ciudad'],
+            ':fecha_nacimiento' => $datos['fecha_nacimiento']
         ];
 
         return $this->ejecutar($sql, $parametros);

@@ -20,6 +20,22 @@ class ClienteServicio
         $this->token = new Token();
     }
 
+    public function registrarPerfil($datos)
+    {
+        $datos_token = $this->token->comprobarToken();
+
+        $datos['usuario_id'] = $datos_token->sub;
+
+        if (!$this->cliente_modelo->registrarPerfil($datos)) {
+            throw new ExcepcionPlataforma('Error al registrar el perfil');
+        }
+
+        return [
+            'success' => true,
+            'message' => 'Perfil registrado correctamente'
+        ];
+    }
+
     public function actualizarPerfil($datos)
     {
         $datos_token = $this->token->comprobarToken();
