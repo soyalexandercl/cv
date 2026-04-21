@@ -2,9 +2,10 @@
 
 namespace Servicios;
 
-use Firebase\JWT\JWT;
 use Modelos\AuthModelo;
 use Nucleo\Token;
+
+use Nucleo\ExcepcionPlataforma;
 
 class AuthServicio
 {
@@ -28,10 +29,18 @@ class AuthServicio
         $obtener_usuario = $this->auth_modelo->obtenerEmail($datos_entrada['email']);
 
         if (!$obtener_usuario || !password_verify($datos_entrada['contrasena'], $obtener_usuario['contrasena'])) {
-            
+            throw new ExcepcionPlataforma('Credenciales inválidas');
         }
 
         $token = $this->token->generarToken($obtener_usuario['id']);
+
+        if (!$token) {
+            throw new ExcepcionPlataforma('Error al generar el token');
+        }
+
+        $_COOKIE['token_acceso'] = $token;
+
+        $_SESSION['modulo'] = 'usuario';
 
         $parametros_respuesta = [
             'success' => true,
@@ -46,32 +55,41 @@ class AuthServicio
         // Estructura
         // "nombre": "Alex",
         // "apellidos": "Cardona",
-        // "email": "alexcardonal24@gmail.com",
-        // "telefono": "1234567890",
+        // "email": "alexcardonal24@gmail.com"
         // "contrasena": "12345678"
 
         $obtener_email = $this->auth_modelo->obtenerEmail($datos_entrada['email']);   
         
         if ($obtener_email) {
-            
-        }
-
-        $obtener_telefono = $this->auth_modelo->obtenerTelefono($datos_entrada['telefono']);
-
-        if ($obtener_telefono) {
-            
+            throw new ExcepcionPlataforma('El correo electrónico ya está registrado');
         }
 
         $this->conexion->beginTransaction();
 
         $registrar_usuario = $this->auth_modelo->registrarUsuario($datos_entrada);
 
-        $usuario_id = $this->auth_modelo->obtenerId();
+        if (!$registrar_usuario) {
+            $this->conexion->rollBack();
 
-        $this->conexion->commit();
+            throw new ExcepcionPlataforma('Error en el registro');
+        }
+
+        $usuario_id = $this->auth_modelo->obtenerId();
 
         $token = $this->token->generarToken($usuario_id);
 
+        if (!$token) {
+            $this->conexion->rollBack();
+
+            throw new ExcepcionPlataforma('Error al generar el token');
+        }
+
+        $this->conexion->commit();
+
+        $_COOKIE['token_acceso'] = $token;
+        
+        $_SESSION['modulo'] = 'usuario';
+        
         $parametros_respuesta = [
             'success' => true,
             'token' => $token

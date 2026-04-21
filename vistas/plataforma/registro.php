@@ -185,7 +185,7 @@
                         alert('Operación exitosa');
                         window.location.href = '/'; // Redirigir al inicio
                     } else {
-                        alert('Error: ' + (resultado.mensaje || 'Credenciales inválidas'));
+                        alert('Error: ' + (resultado.message || 'Credenciales inválidas'));
                     }
                 } catch (error) {
                     console.error('Error en la petición:', error);

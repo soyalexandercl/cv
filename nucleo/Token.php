@@ -24,7 +24,7 @@ class Token
     public function comprobarToken()
     {
         if (!isset($_COOKIE['token_acceso'])) {
-            
+            throw new ExcepcionPlataforma('Token de acceso no encontrado');
         }
 
         $token = $_COOKIE['token_acceso'];

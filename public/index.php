@@ -12,4 +12,6 @@ $dotenv->load();
 $enrutador = new Enrutador();
 $ruta = $enrutador->procesarRuta();
 
-require_once __DIR__ . '/../rutas/plataforma.php';
+$modulo = $_SESSION['modulo'] ?? 'plataforma';
+
+require_once __DIR__ . '/../rutas/' . $modulo . '.php';

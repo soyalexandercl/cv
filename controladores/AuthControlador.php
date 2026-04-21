@@ -5,6 +5,9 @@ namespace Controladores;
 use Controladores\Controlador;
 use Servicios\AuthServicio;
 
+use Exception;
+use Nucleo\ExcepcionPlataforma;
+
 class AuthControlador extends Controlador
 {
     private $auth_servicio;
@@ -17,19 +20,51 @@ class AuthControlador extends Controlador
     }
     public function iniciarSesion()
     {
-        $datos_entrada = json_decode(file_get_contents('php://input'), true);
+        try {
+            $datos_entrada = json_decode(file_get_contents('php://input'), true);
 
-        $resultado = $this->auth_servicio->iniciarSesion($datos_entrada);
+            $resultado = $this->auth_servicio->iniciarSesion($datos_entrada);
 
-        echo json_encode($resultado);
+            echo json_encode($resultado);
+        } catch (ExcepcionPlataforma $e) {
+            $parametros_respuesta = [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+
+            echo json_encode($parametros_respuesta);
+        } catch (Exception $e) {
+            $parametros_respuesta = [
+                'success' => false,
+                'message' => 'Error inesperado: ' . $e->getMessage()
+            ];
+
+            echo json_encode($parametros_respuesta);
+        }
     }
 
     public function registrarUsuario()
     {
-        $datos_entrada = json_decode(file_get_contents('php://input'), true);
+        try {
+            $datos_entrada = json_decode(file_get_contents('php://input'), true);
 
-        $resultado = $this->auth_servicio->registrarUsuario($datos_entrada);
+            $resultado = $this->auth_servicio->registrarUsuario($datos_entrada);
 
-        echo json_encode($resultado);
+            echo json_encode($resultado);
+        } catch (ExcepcionPlataforma $e) {
+            $parametros_respuesta = [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+
+            echo json_encode($parametros_respuesta);
+        } catch (Exception $e) {
+            $parametros_respuesta = [
+                'success' => false,
+                'message' => 'Error inesperado: ' . $e->getMessage()
+            ];
+
+            echo json_encode($parametros_respuesta);
+        }
     }
 }

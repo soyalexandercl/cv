@@ -37,16 +37,4 @@ class AuthModelo extends Modelo
 
         return $this->obtenerUno($sql, $parametros);
     }
-
-    public function obtenerTelefono($telefono)
-    {
-        $sql = "SELECT *
-                FROM usuarios
-                WHERE telefono = :telefono
-                LIMIT 1";
-
-        $parametros = [':telefono' => $telefono];
-
-        return $this->obtenerUno($sql, $parametros);
-    }
 }

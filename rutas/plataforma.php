@@ -23,7 +23,6 @@ if ($ruta['metodo_http'] == 'GET') {
             $pagina_controlador->mostrarPagina('plataforma/creadores');
             break;
         default:
-            http_response_code(404);
             echo "Página de la plataforma no encontrada";
     }
 } elseif ($ruta['metodo_http'] == 'POST') {
@@ -38,7 +37,6 @@ if ($ruta['metodo_http'] == 'GET') {
                 $auth_controlador->registrarUsuario();
                 break;
             default:
-                http_response_code(404);
                 echo "Página de autenticación no encontrada";
         }
     }
