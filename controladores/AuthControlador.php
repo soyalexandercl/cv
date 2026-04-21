@@ -16,14 +16,21 @@ class AuthControlador extends Controlador
         $this->auth_servicio = new AuthServicio($this->conexion);
     }
 
-    public function vistaInicioSesion()
+    public function vista($vista)
     {
-        echo "Mostrar inicio de sesión";
+        include_once __DIR__ . "/../vistas/componentes/head.php";
+        include_once __DIR__ . "/../vistas/" . $vista . ".php";
+        include_once __DIR__ . "/../vistas/componentes/footer.php";
     }
 
-    public function vistaRegistroUsuario()
+    public function mostrarInicioSesion()
     {
-        echo "Mostrar registro";
+        $this->vista('inicioSesion');
+    }
+
+    public function mostrarRegistroUsuario()
+    {
+        $this->vista('registroUsuario');
     }
 
     public function iniciarSesion()
