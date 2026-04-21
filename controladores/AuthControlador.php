@@ -16,13 +16,31 @@ class AuthControlador extends Controlador
         $this->auth_servicio = new AuthServicio($this->conexion);
     }
 
+    public function mostrarInicioSesion()
+    {
+        echo "Mostrar inicio de sesión";
+    }
+
+    public function mostrarRegistroUsuario()
+    {
+        echo "Mostrar registro";
+    }
+
     public function iniciarSesion()
     {
-        echo "Iniciar sesión";
+        $datos_entrada = json_decode(file_get_contents('php://input'), true);
+
+        $resultado = $this->auth_servicio->iniciarSesion($datos_entrada);
+
+        echo json_encode($resultado);
     }
 
     public function registrarUsuario()
     {
-        echo "Registrar usuario";
+        $datos_entrada = json_decode(file_get_contents('php://input'), true);
+
+        $resultado = $this->auth_servicio->registrarUsuario($datos_entrada);
+
+        echo json_encode($resultado);
     }
 }
