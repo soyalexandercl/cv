@@ -11,3 +11,92 @@ CREATE TABLE usuarios_clientes (
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
+
+CREATE TABLE usuarios_creadores (
+    usuario_id INT PRIMARY KEY,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
+CREATE TABLE plantillas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT NULL,
+    precio DECIMAL(10, 2) NOT NULL,
+    enlace VARCHAR(255) NOT NULL,
+    directorio VARCHAR(255) NOT NULL,
+    estado ENUM('pendiente', 'activo', 'inactivo') NOT NULL DEFAULT 'pendiente',
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
+CREATE TABLE clientes_perfiles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    foto VARCHAR(255) NULL,
+    nombre VARCHAR(100) NULL,
+    apellidos VARCHAR(100) NULL,
+    email VARCHAR(150) NULL,
+    telefono VARCHAR(20) NULL,
+    direccion VARCHAR(255) NULL,
+    fecha_nacimiento DATE NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
+CREATE TABLE clientes_experiencias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    empresa VARCHAR(255) NOT NULL,
+    puesto VARCHAR(255) NOT NULL,
+    fecha_inicio DATE NOT NULL,
+    fecha_fin DATE NULL,
+    descripcion TEXT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
+CREATE TABLE clientes_educacion (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    institucion VARCHAR(255) NOT NULL,
+    titulo VARCHAR(255) NOT NULL,
+    fecha_inicio DATE NOT NULL,
+    fecha_fin DATE NULL,
+    descripcion TEXT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
+CREATE TABLE clientes_habilidades (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    habilidad VARCHAR(255) NOT NULL,
+    nivel INT NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
+CREATE TABLE clientes_idiomas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    idioma VARCHAR(255) NOT NULL,
+    nivel INT NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
+CREATE TABLE clientes_plantillas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    plantilla_id INT NOT NULL,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+    FOREIGN KEY (plantilla_id) REFERENCES plantillas(id)
+);
+
+CREATE TABLE clientes_curriculums (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    plantilla_id INT NOT NULL,
+    nombre VARCHAR(255) NOT NULL,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+    FOREIGN KEY (plantilla_id) REFERENCES plantillas(id)
+);
