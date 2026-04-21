@@ -66,11 +66,11 @@ class AuthServicio
 
         $registrar_usuario = $this->auth_modelo->registrarUsuario($datos_entrada);
 
-        $id_usuario = $this->auth_modelo->obtenerId();
+        $usuario_id = $this->auth_modelo->obtenerId();
 
         $this->conexion->commit();
 
-        $token = $this->token->generarToken($id_usuario, $datos_entrada['rol']);
+        $token = $this->token->generarToken($usuario_id);
 
         $parametros_respuesta = [
             'success' => true,
