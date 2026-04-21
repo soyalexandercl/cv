@@ -6,13 +6,13 @@ CREATE TABLE usuarios (
     contrasena VARCHAR(200) NOT NULL
 );
 
-CREATE TABLE usuarios_clientes (
+CREATE TABLE clientes (
     id INT PRIMARY KEY,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id) REFERENCES usuarios(id)
 );
 
-CREATE TABLE usuarios_creadores (
+CREATE TABLE creadores (
     id INT PRIMARY KEY,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id) REFERENCES usuarios(id)

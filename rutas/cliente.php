@@ -45,8 +45,8 @@ if ($ruta['metodo_http'] == 'GET') {
     if ($ruta['ruta'][0] == 'cliente') {
         $cliente_controlador = new ClienteControlador();
         switch ($ruta['ruta'][1]) {
-            case 'modificar-perfil':
-                $cliente_controlador->modificarPerfil();
+            case 'actualizar-perfil':
+                $cliente_controlador->actualizarPerfil();
                 break;
             case 'registrar-experiencia':
                 $cliente_controlador->registrarExperiencia();

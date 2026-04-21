@@ -13,7 +13,7 @@ class ClienteModelo extends Modelo
 
     public function registrarCliente($usuario_id)
     {
-        $sql = "INSERT INTO clientes (usuario_id)
+        $sql = "INSERT INTO clientes (id)
                 VALUES (:usuario_id)";
 
         $parametros = [
@@ -25,7 +25,7 @@ class ClienteModelo extends Modelo
 
     public function registrarPerfil($usuario_id)
     {
-        $sql = "INSERT INTO clientes_perfiles (usuario_id)
+        $sql = "INSERT INTO clientes_perfiles (id)
                 VALUES (:usuario_id)";
 
         $parametros = [
