@@ -7,7 +7,7 @@ use Firebase\JWT\Key;
 
 class Token
 {
-    public function generarToken($id_usuario, $rol)
+    public function generarToken($usuario_id, $rol)
     {
         $clave_secreta = $_ENV['JWT_CLAVE_SECRETA'];
         
@@ -15,7 +15,7 @@ class Token
             'iss' => 'cv',
             'iat' => time(),
             'exp' => time() + (60 * 60),
-            'sub' => $id_usuario,
+            'sub' => $usuario_id,
             'rol' => $rol
         ];
 
