@@ -84,7 +84,7 @@
 <div class="login-container">
     <div class="login-card">
         <h2>Iniciar Sesión</h2>
-        <form action="/auth/login" method="POST">
+        <form action="http://localhost/auth/inicio-sesion" method="POST">
             <div class="form-group">
                 <label for="email">Correo Electrónico</label>
                 <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
@@ -100,3 +100,44 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const formularios = document.querySelectorAll('form');
+
+        formularios.forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Evita la recarga de página
+
+                // Obtener los datos del formulario
+                const formData = new FormData(form);
+                const datos = Object.fromEntries(formData.entries());
+
+                try {
+                    const respuesta = await fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(datos)
+                    });
+
+                    const resultado = await respuesta.json();
+
+                    if (resultado.success) {
+                        // Guardar token en cookie (tu clase Token.php lo busca allí)
+                        // document.cookie = `token_acceso=${resultado.token}; path=/; max-age=3600; SameSite=Strict`;
+                        
+                        alert('Operación exitosa');
+                        window.location.href = '/'; // Redirigir al inicio
+                    } else {
+                        alert('Error: ' + (resultado.mensaje || 'Credenciales inválidas'));
+                    }
+                } catch (error) {
+                    console.error('Error en la petición:', error);
+                    alert('Ocurrió un error al conectar con el servidor');
+                }
+            });
+        });
+    });
+</script>

@@ -13,14 +13,13 @@ class AuthModelo extends Modelo
 
     public function registrarUsuario($datos)
     {
-        $sql = "INSERT INTO usuarios (nombre, apellidos, email, telefono, contrasena)
-                VALUES (:nombre, :apellidos, :email, :telefono, :contrasena)";
+        $sql = "INSERT INTO usuarios (nombre, apellidos, email, contrasena)
+                VALUES (:nombre, :apellidos, :email, :contrasena)";
 
         $parametros = [
             ':nombre' => $datos['nombre'],
             ':apellidos' => $datos['apellidos'],
             ':email' => $datos['email'],
-            ':telefono' => $datos['telefono'],
             ':contrasena' => password_hash($datos['contrasena'], PASSWORD_BCRYPT)
         ];
 

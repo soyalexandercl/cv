@@ -29,11 +29,11 @@ if ($ruta['metodo_http'] == 'GET') {
 } elseif ($ruta['metodo_http'] == 'POST') {
     if ($ruta['ruta'][0] == 'auth') {
         switch ($ruta['ruta'][1]) {
-            case 'iniciar-sesion':
+            case 'inicio-sesion':
                 $auth_controlador = new AuthControlador();
                 $auth_controlador->iniciarSesion();
                 break;
-            case 'registrarse':
+            case 'registro':
                 $auth_controlador = new AuthControlador();
                 $auth_controlador->registrarUsuario();
                 break;

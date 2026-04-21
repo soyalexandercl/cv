@@ -123,7 +123,7 @@
         <h2>Crea tu cuenta</h2>
         <p>Únete a la plataforma de CV profesionales</p>
         
-        <form action="/auth/registrarse" method="POST">
+        <form action="http://localhost/auth/registro" method="POST">
             <div class="form-grid">
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
@@ -141,11 +141,6 @@
                 </div>
 
                 <div class="form-group full-width">
-                    <label for="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" name="telefono" placeholder="+57 300 000 0000" required>
-                </div>
-
-                <div class="form-group full-width">
                     <label for="contrasena">Contraseña</label>
                     <input type="password" id="contrasena" name="contrasena" placeholder="Min. 8 caracteres" required>
                 </div>
@@ -159,3 +154,44 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const formularios = document.querySelectorAll('form');
+
+        formularios.forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Evita la recarga de página
+
+                // Obtener los datos del formulario
+                const formData = new FormData(form);
+                const datos = Object.fromEntries(formData.entries());
+
+                try {
+                    const respuesta = await fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(datos)
+                    });
+
+                    const resultado = await respuesta.json();
+
+                    if (resultado.success) {
+                        // Guardar token en cookie (tu clase Token.php lo busca allí)
+                        // document.cookie = `token_acceso=${resultado.token}; path=/; max-age=3600; SameSite=Strict`;
+                        
+                        alert('Operación exitosa');
+                        window.location.href = '/'; // Redirigir al inicio
+                    } else {
+                        alert('Error: ' + (resultado.mensaje || 'Credenciales inválidas'));
+                    }
+                } catch (error) {
+                    console.error('Error en la petición:', error);
+                    alert('Ocurrió un error al conectar con el servidor');
+                }
+            });
+        });
+    });
+</script>
