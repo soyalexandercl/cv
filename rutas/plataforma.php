@@ -5,12 +5,15 @@ use Controladores\AuthControlador;
 
 if ($ruta['metodo_http'] == 'GET') {
     $pagina_controlador = new PaginaControlador();
-    
+
     switch ($ruta['ruta'][0]) {
-        case 'iniciar-sesion':
+        case '':
+            $pagina_controlador->mostrarPagina('plataforma/inicio');
+            break;
+        case 'inicio-sesion':
             $pagina_controlador->mostrarPagina('plataforma/inicioSesion');
             break;
-        case 'registrarse':
+        case 'registro':
             $pagina_controlador->mostrarPagina('plataforma/registro');
             break;
         case 'planes':
