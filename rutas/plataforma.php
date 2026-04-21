@@ -14,10 +14,25 @@ if ($ruta['metodo_http'] == 'GET') {
                         $pagina_controlador->mostrarPagina('cliente/perfil');
                         break;
                     case 'plantillas':
-                        $pagina_controlador->mostrarPagina('cliente/plantillas');
+                        if (isset($ruta['ruta'][1])) {
+                            // Logica (controlador) para extraer los datos de la plantilla y mostrarlos en la vista
+                            $pagina_controlador->mostrarPagina('cliente/plantilla');
+                        } else {
+                            $pagina_controlador->mostrarPagina('cliente/plantillas');
+                        }
                         break;
                     case 'mis-plantillas':
+                        // Mis plantillas es diferente al listado de plantillas del cliente, esto es a las plantillas que
+                        // el cliente ha comprado, mientras que el listado de plantillas del creador es a las plantillas
+                        // que el creador ha subido a la plataforma
+
+                        // Logica (controlador) para extraer los datos de las plantillas que el cliente ha comprado y
+                        // mostrarlos en la vista
                         $pagina_controlador->mostrarPagina('cliente/misPlantillas');
+                        break;
+                    case 'facturacion':
+                        // Logica (controlador) para extraer los datos de la facturación y mostrarlos en la vista
+                        $pagina_controlador->mostrarPagina('cliente/facturacion');
                         break;
                     default:
                         http_response_code(404);
@@ -28,6 +43,30 @@ if ($ruta['metodo_http'] == 'GET') {
                 switch ($ruta['ruta'][0]) {
                     case 'perfil':
                         $pagina_controlador->mostrarPagina('creador/perfil');
+                        break;
+                    case 'plantillas':
+                        if (isset($ruta['ruta'][1])) {
+                            // Logica (controlador) para extraer los datos de la plantilla y mostrarlos en la vista
+                            $pagina_controlador->mostrarPagina('cliente/plantilla');
+                        } else {
+                            $pagina_controlador->mostrarPagina('cliente/plantillas');
+                        }
+                        break;
+                    case 'mis-plantillas':
+                        // Mis plantillas es diferente al listado de plantillas del cliente, esto es a las plantillas que
+                        // el creador ha subido a la plataforma, mientras que el listado de plantillas del cliente es a
+                        // las plantillas que el cliente ha comprado
+
+                        // Logica (controlador) para extraer los datos de las plantillas que el creador ha subido a la
+                        // plataforma y mostrarlos en la vista
+                        $pagina_controlador->mostrarPagina('cliente/misPlantillas');
+                        break;
+                    case 'crear-plantilla':
+                        $pagina_controlador->mostrarPagina('creador/crearPlantilla');
+                        break;
+                    case 'facturacion':
+                        // Logica (controlador) para extraer los datos de la facturación y mostrarlos en la vista
+                        $pagina_controlador->mostrarPagina('creador/facturacion');
                         break;
                     default:
                         http_response_code(404);
@@ -47,6 +86,7 @@ if ($ruta['metodo_http'] == 'GET') {
                 $pagina_controlador->mostrarPagina('plataforma/registro');
                 break;
             case 'planes':
+                // Logica (controlador) para extraer los datos de los planes y mostrarlos en la vista
                 $pagina_controlador->mostrarPagina('plataforma/planes');
                 break;
             case 'creadores':
