@@ -1,8 +1,10 @@
 <?php
 
+use Controladores\PaginaControlador;
+
 if ($ruta['metodo_http'] == 'GET') {
     $pagina_controlador = new PaginaControlador();
-    
+
     switch ($ruta['ruta'][0]) {
         case 'perfil':
             $pagina_controlador->mostrarPagina('creador/perfil');
