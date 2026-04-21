@@ -19,7 +19,7 @@ class AuthControlador extends Controlador
     public function vista($vista)
     {
         include_once __DIR__ . "/../vistas/componentes/head.php";
-        include_once __DIR__ . "/../vistas/" . $vista . ".php";
+        include_once __DIR__ . "/../vistas/plataforma/" . $vista . ".php";
         include_once __DIR__ . "/../vistas/componentes/footer.php";
     }
 
