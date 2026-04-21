@@ -26,7 +26,6 @@ if ($ruta['metodo_http'] == 'GET') {
             $pagina_controlador->mostrarPagina('creador/facturacion');
             break;
         default:
-            http_response_code(404);
             echo "Página del modulo creador no encontrada";
     }
 } elseif ($ruta['metodo_http'] == 'POST') {

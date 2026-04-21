@@ -3,7 +3,7 @@
 namespace Servicios;
 
 use Modelos\AuthModelo;
-use Modelos\UsuarioModelo;
+use Modelos\ClienteModelo;
 
 use Nucleo\Token;
 
@@ -78,10 +78,11 @@ class AuthServicio
 
         $usuario_id = $this->auth_modelo->obtenerId();
 
-        $usuario_modelo = new UsuarioModelo($this->conexion);
-        $registrar_cliente = $usuario_modelo->registrarUsuarioCliente($usuario_id);
+        $cliente_modelo = new ClienteModelo($this->conexion);
+        $registrar_cliente = $cliente_modelo->registrarCliente($usuario_id);
+        $registrar_perfil = $cliente_modelo->registrarPerfil($usuario_id);
 
-        if (!$registrar_cliente) {
+        if (!$registrar_cliente || !$registrar_perfil) {
             $this->conexion->rollBack();
 
             throw new ExcepcionPlataforma('Error en el registro');

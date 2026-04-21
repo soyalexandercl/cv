@@ -7,20 +7,21 @@ CREATE TABLE usuarios (
 );
 
 CREATE TABLE usuarios_clientes (
-    usuario_id INT PRIMARY KEY,
+    id INT PRIMARY KEY,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+    FOREIGN KEY (id) REFERENCES usuarios(id)
 );
 
 CREATE TABLE usuarios_creadores (
-    usuario_id INT PRIMARY KEY,
+    id INT PRIMARY KEY,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+    FOREIGN KEY (id) REFERENCES usuarios(id)
 );
 
 CREATE TABLE plantillas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
+    portada_url VARCHAR(255) NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT NULL,
     precio DECIMAL(10, 2) NOT NULL,
@@ -32,16 +33,15 @@ CREATE TABLE plantillas (
 );
 
 CREATE TABLE clientes_perfiles (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id INT NOT NULL,
-    foto VARCHAR(255) NULL,
+    id INT PRIMARY KEY,
+    foto_url VARCHAR(255) NULL,
     nombre VARCHAR(100) NULL,
     apellidos VARCHAR(100) NULL,
     email VARCHAR(150) NULL,
     telefono VARCHAR(20) NULL,
-    direccion VARCHAR(255) NULL,
+    ciudad VARCHAR(100) NULL,
     fecha_nacimiento DATE NULL,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+    FOREIGN KEY (id) REFERENCES usuarios(id)
 );
 
 CREATE TABLE clientes_experiencias (
@@ -55,7 +55,7 @@ CREATE TABLE clientes_experiencias (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
 
-CREATE TABLE clientes_educacion (
+CREATE TABLE clientes_formaciones (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
     institucion VARCHAR(255) NOT NULL,
