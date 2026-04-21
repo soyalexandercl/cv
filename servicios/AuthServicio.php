@@ -68,8 +68,6 @@ class AuthServicio
 
         $id_usuario = $this->auth_modelo->obtenerId();
 
-        $registrar_rol = $this->auth_modelo->registrarRol($id_usuario, $datos_entrada['rol']);
-
         $this->conexion->commit();
 
         $token = $this->token->generarToken($id_usuario, $datos_entrada['rol']);
