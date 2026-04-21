@@ -16,12 +16,12 @@ class AuthControlador extends Controlador
         $this->auth_servicio = new AuthServicio($this->conexion);
     }
 
-    public function mostrarInicioSesion()
+    public function vistaInicioSesion()
     {
         echo "Mostrar inicio de sesión";
     }
 
-    public function mostrarRegistroUsuario()
+    public function vistaRegistroUsuario()
     {
         echo "Mostrar registro";
     }
