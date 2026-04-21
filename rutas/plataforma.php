@@ -4,6 +4,8 @@ use Controladores\PaginaControlador;
 use Controladores\AuthControlador;
 
 if ($ruta['metodo_http'] == 'GET') {
+    $pagina_controlador = new PaginaControlador();
+    
     switch ($ruta['ruta'][0]) {
         case 'iniciar-sesion':
             $pagina_controlador->mostrarPagina('plataforma/inicioSesion');
